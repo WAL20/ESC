@@ -7,13 +7,13 @@
 #include <Arduino.h>
 
 #include <TWIbuffer.h>
-#include <AvrTWI.h>
-#include <SSD1306.h>
+#include <TWI.h>
+#include <twiOLED.h>
 #include "..\include\ESC.h"
 
 //----------- TWI Declarations -------------
 
-extern AvrTWI twi;			// two-wire interface
+extern TWI twi;			// two-wire interface
 
 //----------- OLED Declarations -------------
 
@@ -22,7 +22,7 @@ TWIbuffer OLEDbuf(OLEDdata,254);
 TWIbuffer *pOLEDbuf=&OLEDbuf;
 
 #define OLED_ADDRESS 0x3C
-SSD1306 oled(pOLEDbuf);		// OLED display object
+twiOLED oled(pOLEDbuf);		// OLED display object
 
 pESCdata pESC;
 //--------------------------------------------------
@@ -51,7 +51,7 @@ bool clearDisplay(bool fromthetop) {
 			break;							// Success or failure, do something else, then come back later.
 		case 2:
 			(*pRow)++;					// Bump the cursor to next row. Just stuff the hex value.
-			if (((*pRow) & 0x0f) < (SSD1306_HEIGHT/8))
+			if (((*pRow) & 0x0f) < (twiOLED_HEIGHT/8))
 				step--;					// One step back.
 			else
 				step++;					// One step forward.
@@ -91,7 +91,7 @@ void titlePage(bool bNew) {
 		case 3:
 			oled.setCursor(3,48);
 			oled.writeChar("Circle");
-			if (SSD1306_HEIGHT > 32) {				// If there's more room...
+			if (twiOLED_HEIGHT > 32) {				// If there's more room...
 				oled.setCursor(5,32);				//     add a by-line
 				oled.writeChar("by Sisyphus");
 				}

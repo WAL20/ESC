@@ -6,13 +6,13 @@
 #include <Arduino.h>
 #include <TWIbits.h>
 #include <TWIbuffer.h>
-#include <AvrTWI.h>
-#include "..\include\TIMbits.h"
-#include "..\include\ESC.h"
+#include <TWI.h>
+#include "TIMbits.h"
+#include "ESC.h"
 
 
 //----------- TWI Declarations -------------
-AvrTWI twi;			// two-wire interface
+TWI twi;			// two-wire interface
 
 //------------ OLED Declarations ------------------------
 
